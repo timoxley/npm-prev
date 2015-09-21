@@ -1,0 +1,41 @@
+{
+  "name": "npm-prev",
+  "version": "1.0.0",
+  "description": "Wraps previous stable version of npm so you can run it alongside other npm versions",
+  "main": "index.js",
+  "bin": {
+    "npm-prev": "bin/index.js",
+    "npmprev": "bin/index.js"
+  },
+  "scripts": {
+    "test": "tape test.js",
+    "start": "npm test || npm run selfupdate",
+    "selfupdate": "npm install --cache-min=0 --save npm@$(npm info npm@^2.0.0 version --cache-min=Infinity | tail -n 1 | cut -d ' ' -f 2 | cut -d \"'\" -f 2) && npm run commit",
+    "commit": "export NPM_VERSION=$(npm info npm@^2.0.0 version --cache-min=Infinity | tail -n 1 | cut -d ' ' -f 2 | cut -d \"'\" -f 2); git add . && git commit -m \"Upgrade to npm@$NPM_VERSION\""
+  },
+  "author": "Tim Oxley <secoif@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "npm": "^2.14.5"
+  },
+  "devDependencies": {
+    "tape": "~4.0.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/timoxley/npm-prev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/timoxley/npm-prev/issues"
+  },
+  "homepage": "https://github.com/timoxley/npm-prev",
+  "keywords": [
+    "npm",
+    "beta",
+    "alpha",
+    "version",
+    "semver",
+    "testing",
+    "test"
+  ]
+}
